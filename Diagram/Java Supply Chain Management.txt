@@ -1,0 +1,94 @@
+Java Supply Chain Management:
+
+Tools Used :Springboot,JavaFx and Swing maybe
+
+Interfaces:
+Admin
+user
+Delivery Station
+
+Overview:
+Actors:Order processor,Main Warehouse,Production,Delivery Station,User,quality Assurance
+
+Prompt:
+The flow:
+
+The process begins with customers placing orders via an ecommerce website (not included in this project). These orders are recorded in a database, capturing essential details such as order ID, product name, user ID, order date, delivery address, payment method, and amount.
+
+Every night at midnight, the system aggregates all orders from the database and initiates a request to the main warehouse. This warehouse manages its inventory and maintains records of canceled and available items across connected mini warehouses. Upon receiving the request, the main warehouse identifies the nearest delivery station to each customer.
+
+Concurrently, the main warehouse scans nearby warehouses and their inventories. If a canceled item matches a pending order, the main warehouse immediately instructs the delivery station to dispatch the item for delivery. Otherwise, it checks its own inventory for the requested product and forwards it to the nearest delivery station. The order status is then updated accordingly.
+
+In cases where the main warehouse lacks sufficient inventory, it places a production request, resulting in delayed delivery.
+
+The mini warehouse receives daily shipments containing items for delivery and customer details. Subsequently, these items are dispatched to the respective customers. Additionally, returned orders undergo quality assurance checks before being rerouted to the appropriate delivery station. Canceled orders are consolidated and dispatched to the corresponding delivery station. The order status is then adjusted based on these actions.
+
+After receiving their order, users have the option to track their products, cancel, or return them if needed.
+
+Once an order is placed and processed, users can track the status of their product delivery through the system. This functionality allows users to stay informed about the progress of their order, including shipping updates and estimated delivery times.
+
+In addition to tracking, users have the flexibility to cancel their order before it is dispatched from the warehouse. This feature enables users to make changes to their order or cancel it entirely if their circumstances change.
+
+Furthermore, if users receive their order and find it unsatisfactory or no longer needed, they can initiate a return request. The returned product undergoes the quality assurance process to ensure its condition meets the required standards before being rerouted to the appropriate delivery station for restocking or disposal.
+
+
+Interfaces:
+Admin Interface:
+
+Features:
+Upload orders
+Inventory management (including other warehouses)
+Production request
+Update order status
+Tools:
+Spring Boot for backend development
+JavaFX or Swing for frontend development
+User Interface:
+
+Features:
+Cancel product
+Return product
+Check order status
+Tools:
+JavaFX or Swing for frontend development
+Delivery Station Interface:
+
+Features:
+Receive items
+Manage inventory of canceled and to-be-delivered items
+Update order status
+Tools:
+Spring Boot for backend development
+JavaFX or Swing for frontend development
+Project Structure:
+Backend:
+
+Use Spring Boot for backend development to handle business logic, database interactions, and API endpoints.
+Implement controllers for each interface (Admin, User, Delivery Station) to handle requests and responses.
+Use Spring Data JPA for database operations to interact with the database.
+Frontend:
+
+Use JavaFX or Swing for frontend development to create user-friendly interfaces for admins, users, and delivery stations.
+Design interfaces with appropriate forms, tables, and buttons to facilitate order management, inventory control, and status updates.
+Implement event handlers to handle user interactions and trigger backend operations.
+Database:
+
+Use a relational database (e.g., MySQL, PostgreSQL) to store order details, inventory information, and user data.
+Define database schemas for orders, users, inventory, and other relevant entities.
+Utilize Spring Data JPA for easy integration with Spring Boot and efficient database operations.
+Quality Assurance:
+
+Integrate quality assurance checks into the backend process for returned items.
+Implement logic to ensure returned items meet quality standards before restocking or disposal.
+Integration Testing:
+
+Conduct integration testing to ensure seamless communication between interfaces and components.
+Test different scenarios such as order processing, inventory management, and quality assurance checks.
+Deployment:
+
+Deploy the application using cloud services like AWS, Azure, or Google Cloud Platform.
+Utilize Docker for containerization to ensure consistency across different environments.
+By following this approach, we can develop a robust Supply Chain Management system using Spring Boot for backend development and JavaFX or Swing for frontend interfaces. Additionally, integration testing and deployment strategies will ensure a reliable and scalable application.
+
+
+Based on this help me to design the class diagram following GRASP and SOLID Principles.And explain where these principles are used in the class diagrams
