@@ -1,13 +1,14 @@
 package com.sc.sc.model;
 
-public enum role {
-    ADMIN("Admin"),
-    CUSTOMER("Customer"),
-    DELIVERY_STATION("Delivery_Station");
+public enum status {
+    SHIPPED("Shipped"),
+    CANCELLED("Cancelled"),
+    RETURNED("Returned"),
+    DELIVERED("Delivered");
 
     private final String displayName;
 
-    role(String displayName) {
+    status(String displayName) {
         this.displayName = displayName;
     }
 

@@ -1,29 +1,29 @@
 package com.sc.sc.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+// import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class user {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    private String name;
-    private String address;
+    private Long id;
 
     @OneToOne
     private login login;
 
-    @OneToMany
-    private List<Order> orders;
+    private String address;
 
-    // Constructors, getters and setters, and other methods...
+    private String name;
 
     // Getters
-    public Integer getId() {
+    public Long getId() {
         return id;
+    }
+
+    public login getlogin() {
+        return login;
     }
 
     public String getName() {
@@ -34,17 +34,13 @@ public class User {
         return address;
     }
 
-    public login getlogin() {
-        return login;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
     // Setters
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+    
+    public void setlogin(login login) {
+        this.login = login;
     }
 
     public void setName(String name) {
@@ -53,13 +49,5 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public void setlogin(login login) {
-        this.login = login;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 }

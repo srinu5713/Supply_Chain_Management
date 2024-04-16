@@ -8,10 +8,9 @@ public class login {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer user_id;
-
-
+    
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private role role;
 
     @Column(unique = true)
     private String email;
@@ -20,12 +19,7 @@ public class login {
 
     // Constructors, getters and setters, and other methods...
 
-    // Getters
-    public Integer getuser_Id() {
-        return user_id;
-    }
-
-    public Role getRole() {
+    public role getrole() {
         return role;
     }
 
@@ -37,12 +31,7 @@ public class login {
         return password;
     }
 
-    // Setters
-    public void setId(Integer id) {
-        this.user_id = id;
-    }
-
-    public void setRole(Role role) {
+    public void setrole(role role) {
         this.role = role;
     }
 
