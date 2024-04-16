@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Order Details</h2>
+        <!-- Details of the order will be displayed here -->
+        <div id="order-details">
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, only required if using Bootstrap JavaScript features) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to fetch order details based on order ID from URL query parameter
+        function fetchOrderDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
+
+            // Example: Fetch order details from server and update HTML
+            // Replace this with your actual server request
+            // Example response: { productName: 'Product 1', deliveryDate: '2022-04-15', status: 'Delivered' }
+            const orderDetails = {
+                productName: 'Product 1',
+                productID: '123456',
+                price: '$50.00',
+                imageSrc: 'path/to/image.jpg',
+                deliveryDate: '2022-04-15',
+                status: 'Delivered' // Change status here to test
+            };
+
+            // Update HTML with order details
+            const orderDetailsHtml = `
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="${orderDetails.imageSrc}" class="card-img" alt="Product Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${orderDetails.productName}</h5>
+                                <p class="card-text"><strong>Product ID:</strong> ${orderDetails.productID}</p>
+                                <p class="card-text"><strong>Price:</strong> ${orderDetails.price}</p>
+                                <p class="card-text"><strong>Delivery Date:</strong> ${orderDetails.deliveryDate}</p>
+                                <p class="card-text"><strong>Status:</strong> ${orderDetails.status}</p>
+                                ${
+                                    orderDetails.status === 'Delivered' ?
+                                    `<button class="btn btn-warning" onclick="returnOrder()">Return Order</button>` :
+                                    `<button class="btn btn-danger" onclick="cancelOrder()">Cancel Order</button>`
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('order-details').innerHTML = orderDetailsHtml;
+        }
+
+        // Function to handle cancel order
+        function cancelOrder() {
+            // Perform cancel order action here
+            alert('Order cancelled successfully!');
+        }
+
+        // Function to handle return order
+        function returnOrder() {
+            // Perform return order action here
+            alert('Order returned successfully!');
+        }
+
+        // Call fetchOrderDetails function when the page loads
+        window.onload = fetchOrderDetails;
+    </script>
+</body>
+
+</html>
