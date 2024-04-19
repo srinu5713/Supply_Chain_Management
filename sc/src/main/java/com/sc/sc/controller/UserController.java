@@ -1,7 +1,7 @@
 package com.sc.sc.controller;
 
 import com.sc.sc.model.User;
-import com.sc.sc.model.login;
+
 import com.sc.sc.model.Order;
 import com.sc.sc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +39,13 @@ public class UserController {
         String userEmail = (String) session.getAttribute("userEmail");
 
         // Fetch user details based on email
-        login user = userRepository.findByEmail(userEmail);
+        // login user = userRepository.findByEmail(userEmail);
 
         // Fetch orders associated with the user (assuming you have a method in
         // UserRepository to do this)
-        List<Order> userOrders = userRepository.findOrdersByUserId(user.getuser_Id());
+        // List<Order> userOrders = userRepository.findOrdersByUserId(user.getuser_Id());
 
-        model.addAttribute("user", user);
+        // model.addAttribute("user", user);
         model.addAttribute("orders", userOrders);
         return "user";
     }
@@ -53,7 +53,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
         // Perform authentication logic
-        login user = userRepository.findByEmailAndPassword(email, password);
+        // login user = userRepository.findByEmailAndPassword(email, password);
         if (user != null) {
             // Store email in session
             session.setAttribute("userEmail", email);

@@ -1,14 +1,14 @@
+
 package com.sc.sc.model;
 
-public enum Role {
-    ADMIN("Admin"),
-    CUSTOMER("Customer"),
-    PRODUCTION("Production"),
-    DELIVERY_STATION("Delivery_Station");
+public enum DSInventoryStatus {
+    
+    CANCELLED("cancelled"),
+    RETURNED("returned");
 
     private final String displayName;
 
-    Role(String displayName) {
+    DSInventoryStatus(String displayName) {
         this.displayName = displayName;
     }
 
@@ -16,5 +16,3 @@ public enum Role {
         return displayName;
     }
 }
-
-

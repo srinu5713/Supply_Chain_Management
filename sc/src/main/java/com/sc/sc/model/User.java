@@ -4,62 +4,84 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long userId;
 
-    private String name;
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role type;
+
     private String address;
 
-    @OneToOne
-    private login login;
+    @Column(name = "mobile_number")
+    private String mobileNumber;
 
-    @OneToMany
-    private List<Order> orders;
-
-    // Constructors, getters and setters, and other methods...
-
-    // Getters
-    public Integer getId() {
-        return id;
+    // Constructors
+    public User() {
     }
 
-    public String getName() {
-        return name;
+    public User(String username, String password, Role type, String address, String mobileNumber) {
+        this.username = username;
+        this.password = password;
+        this.type = type;
+        this.address = address;
+        this.mobileNumber = mobileNumber;
+    }
+
+    // Getters and setters
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getType() {
+        return type;
+    }
+
+    public void setType(Role type) {
+        this.type = type;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public login getlogin() {
-        return login;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    // Setters
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public void setlogin(login login) {
-        this.login = login;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }
