@@ -11,7 +11,7 @@ public class ReqProduction {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private product product;
+    private Product product;
 
     private int quantity;
 
@@ -22,7 +22,7 @@ public class ReqProduction {
     public ReqProduction() {
     }
 
-    public ReqProduction(product product, int quantity, ProductionStatus status) {
+    public ReqProduction(Product product, int quantity, ProductionStatus status) {
         this.product = product;
         this.quantity = quantity;
         this.status = status;
@@ -37,11 +37,11 @@ public class ReqProduction {
         this.reqId = reqId;
     }
 
-    public product getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

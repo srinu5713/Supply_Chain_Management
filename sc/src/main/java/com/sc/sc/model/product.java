@@ -2,8 +2,8 @@ package com.sc.sc.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "products")
-public class product {
+@Table(name = "Products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
@@ -18,10 +18,10 @@ public class product {
     private String pictureUrl;
 
     // Constructors
-    public product() {
+    public Product() {
     }
 
-    public product(String productName, double price, String pictureUrl) {
+    public Product(String productName, double price, String pictureUrl) {
         this.productName = productName;
         this.price = price;
         this.pictureUrl = pictureUrl;

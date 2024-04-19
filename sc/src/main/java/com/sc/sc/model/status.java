@@ -1,6 +1,6 @@
 package com.sc.sc.model;
 
-public enum status {
+public enum Status {
     SHIPPED("shipped"),
     CANCELLED("cancelled"),
     RETURNED("returned"),
@@ -10,7 +10,7 @@ public enum status {
     
     private final String displayName;
 
-    status(String displayName) {
+    Status(String displayName) {
         this.displayName = displayName;
     }
 

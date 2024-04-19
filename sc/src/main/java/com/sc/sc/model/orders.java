@@ -3,31 +3,31 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "orders")
-public class orders {
+@Table(name = "Orders")
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private product product;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private status status;
+    private Status status;
 
     @Column(name = "expected_delivery_date", nullable = false)
     private LocalDate expectedDeliveryDate;
 
     // Constructors
-    public orders() {
+    public Orders() {
     }
 
-    public orders(product product, User user, status status, LocalDate expectedDeliveryDate) {
+    public Orders(Product product, User user, Status status, LocalDate expectedDeliveryDate) {
         this.product = product;
         this.user = user;
         this.status = status;
@@ -43,11 +43,11 @@ public class orders {
         this.orderId = orderId;
     }
 
-    public product getproduct() {
+    public Product getproduct() {
         return product;
     }
 
-    public void setproduct(product product) {
+    public void setproduct(Product product) {
         this.product = product;
     }
 
@@ -59,11 +59,11 @@ public class orders {
         this.user = user;
     }
 
-    public status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

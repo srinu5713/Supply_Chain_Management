@@ -10,7 +10,7 @@ public class DSInventory {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private product product;
+    private Product product;
 
     @Enumerated(EnumType.STRING)
     private DSInventoryStatus status;
@@ -21,7 +21,7 @@ public class DSInventory {
     public DSInventory() {
     }
 
-    public DSInventory(product product, DSInventoryStatus status, int quantity) {
+    public DSInventory(Product product, DSInventoryStatus status, int quantity) {
         this.product = product;
         this.status = status;
         this.quantity = quantity;
@@ -36,11 +36,11 @@ public class DSInventory {
         this.id = id;
     }
 
-    public product getproduct() {
+    public Product getproduct() {
         return product;
     }
 
-    public void setproduct(product product) {
+    public void setproduct(Product product) {
         this.product = product;
     }
 

@@ -10,7 +10,7 @@ public class MWInventory {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private product product;
+    private Product product;
 
     private int quantity;
 
@@ -18,7 +18,7 @@ public class MWInventory {
     public MWInventory() {
     }
 
-    public MWInventory(product product, int quantity) {
+    public MWInventory(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -32,11 +32,11 @@ public class MWInventory {
         this.id = id;
     }
 
-    public product getproduct() {
+    public Product getproduct() {
         return product;
     }
 
-    public void setproduct(product product) {
+    public void setproduct(Product product) {
         this.product = product;
     }
 
