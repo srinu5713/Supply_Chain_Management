@@ -25,15 +25,21 @@ public class Orders {
     @Column(name = "expected_delivery_date", nullable = false)
     private LocalDate expectedDeliveryDate;
 
+    @Column(name = "ordered_date", nullable = false)
+    private LocalDate orderedDate;
+
+
     // Constructors
     public Orders() {
     }
 
-    public Orders(Product product, User user, Status status, LocalDate expectedDeliveryDate) {
+    public Orders(Product product, User user, Status status, LocalDate expectedDeliveryDate, LocalDate orderedDate) {
         this.product = product;
         this.user = user;
         this.status = status;
         this.expectedDeliveryDate = expectedDeliveryDate;
+        this.orderedDate = orderedDate;
+
     }
 
     // Getters and setters
@@ -76,4 +82,13 @@ public class Orders {
     public void setExpectedDeliveryDate(LocalDate expectedDeliveryDate) {
         this.expectedDeliveryDate = expectedDeliveryDate;
     }
+
+    public LocalDate getOrderedDate() {
+        return orderedDate;
+    }
+
+    public void setOrderedDate(LocalDate orderedDate) {
+        this.orderedDate = orderedDate;
+    }
+
 }

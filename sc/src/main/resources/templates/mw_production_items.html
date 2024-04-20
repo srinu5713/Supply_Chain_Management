@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Items Sent to Production</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
@@ -81,31 +81,27 @@
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </form>
         </nav>
-        <h1>Items sent to production</h1>
-        <!-- Date picker input field -->
-        <!-- Table to display user data -->
+        <h1>Items Sent to Production</h1>
+        <!-- Table to display MWInventory data -->
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Req ID</th> 
                     <th>Product ID</th>
-                    <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Loop through users and display each row -->
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.user_type }}</td>
+                <!-- Loop through MWInventory items and display each row -->
+                <tr th:each="item : ${ReqProdItems}">
+                    <td th:text="${item.reqId}">Req ID</td> 
+                    <td th:text="${item.productId}">Product ID</td>
+                    <td th:text="${item.quantity}">Quantity</td>
+                    <td th:text="${item.status}">Status</td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
-
     </div>
 
     <!-- Font Awesome JS -->

@@ -1,7 +1,9 @@
 package com.sc.sc.controller;
 
-import com.sc.sc.model.MWInventory;
-import com.sc.sc.repository.MWInventoryRepository;
+import com.sc.sc.model.ReqProduction;
+import com.sc.sc.repository.OrdersRepository;
+import com.sc.sc.repository.ReqProductionRepository;
+import com.sc.sc.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +15,35 @@ import java.util.List;
 public class MWInventoryController {
 
     @Autowired
-    private MWInventoryRepository mwInventoryRepository;
+    private ReqProductionRepository reqproductionrepository;
+
+    @Autowired
+    private OrdersRepository ordersrepository;
 
     @GetMapping("/mw_production_items")
     public String getMWProductionItems(Model model) {
-        List<MWInventory> mwProductionItems = mwInventoryRepository.findAll(); // Example query, you may need to modify it
-        model.addAttribute("mwProductionItems", mwProductionItems);
-        return "mw_production_items";
+        // Fetch MWInventory items from the database
+        List<ReqProduction> mwProductionItems = reqproductionrepository.findAll();
+        // Pass the fetched items to the Thymeleaf template for rendering
+        model.addAttribute("ReqProdItems", mwProductionItems);
+        return "mw_production_items"; // Return the name of the Thymeleaf template
     }
 
-//     @GetMapping("/mw_home")
-//     public String showMWHome(Model model) {
-//         // Fetch all items from MWInventory
-//         List<MWInventory> inventoryItems = mwInventoryRepository.findAll();
-//         model.addAttribute("inventoryItems", inventoryItems);
-//         return "mw_home";
-//     }
+    @GetMapping("/orders")
+    public String getAllOrders(Model model) {
+        // Fetch all orders from the database
+        List<Orders> orders = ordersrepository.findAll();
+        // Pass the fetched orders to the Thymeleaf template for rendering
+        model.addAttribute("orders", orders);
+        return "orders";
+
+    }
+
+
+    @GetMapping("/processorders")
+    public String processOrders(Model model) {
+        // Fetch all orders from the uploaded csv file
+        // Then after clicking on submit then it inserts into the table orders
+        return "";
+    }
 }

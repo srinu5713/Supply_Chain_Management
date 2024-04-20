@@ -13,6 +13,9 @@ public class ReqProduction {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column(name = "product_id", insertable = false, updatable = false) // Added to map productId
+    private Long productId;
+
     private int quantity;
 
     @Enumerated(EnumType.STRING)
@@ -22,8 +25,9 @@ public class ReqProduction {
     public ReqProduction() {
     }
 
-    public ReqProduction(Product product, int quantity, ProductionStatus status) {
+    public ReqProduction(Product product, Long productId, int quantity, ProductionStatus status) {
         this.product = product;
+        this.productId = productId; // Assigning the value to productId
         this.quantity = quantity;
         this.status = status;
     }
@@ -43,6 +47,14 @@ public class ReqProduction {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
