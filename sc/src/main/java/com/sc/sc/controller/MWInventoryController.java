@@ -21,4 +21,12 @@ public class MWInventoryController {
         model.addAttribute("mwProductionItems", mwProductionItems);
         return "mw_production_items";
     }
+
+//     @GetMapping("/mw_home")
+//     public String showMWHome(Model model) {
+//         // Fetch all items from MWInventory
+//         List<MWInventory> inventoryItems = mwInventoryRepository.findAll();
+//         model.addAttribute("inventoryItems", inventoryItems);
+//         return "mw_home";
+//     }
 }

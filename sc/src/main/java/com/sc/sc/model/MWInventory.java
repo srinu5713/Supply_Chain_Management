@@ -1,4 +1,6 @@
+// MWInventory.java
 package com.sc.sc.model;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -32,11 +34,11 @@ public class MWInventory {
         this.id = id;
     }
 
-    public Product getproduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setproduct(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

@@ -3,6 +3,7 @@ package com.sc.sc.controller;
 import com.sc.sc.model.User;
 import com.sc.sc.repository.UserRepository;
 import com.sc.sc.repository.OrdersRepository;
+import com.sc.sc.repository.MWInventoryRepository;
 import com.sc.sc.model.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Autowired
+    private MWInventoryRepository mwInventoryRepository;
 
     @RequestMapping("/")
     public String showLoginForm(Model model) {
@@ -55,6 +59,8 @@ public class UserController {
             return "login"; // Redirect to login page with error message
         }
     }
+
+    // User Redirections
 
     @GetMapping("/user")
     public String showUserDashboard(HttpSession session, Model model) {
@@ -108,8 +114,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("/mw_admin")
+    public String showAdminDashboard(HttpSession session, Model model) {
+        Long userId = (Long) session.getAttribute("user_id");
+        if (userId != null) {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isPresent()) {
+                List<MWInventory> inventoryItems = mwInventoryRepository.findAll();
+                model.addAttribute("inventoryItems", inventoryItems);
+                return "mw_admin"; // Assuming you have a view named "mw_admin"
+            }
+        }
+        return "redirect:/"; // Redirect to login if session does not contain valid user_id
+    }
 
-
-
-    // Similar methods for other dashboard endpoints
 }

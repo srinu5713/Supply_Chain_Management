@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReqProductionRepository extends JpaRepository<ReqProduction, Long> {
     // Add custom query methods if needed
+    
 }
