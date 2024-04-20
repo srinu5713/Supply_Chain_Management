@@ -1,4 +1,5 @@
 package com.sc.sc.model;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,19 +29,19 @@ public class Product {
     }
 
     // Getters and setters
-    public Long getproductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setproductId(Long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public String getproductName() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setproductName(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 

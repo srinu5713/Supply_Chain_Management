@@ -8,9 +8,9 @@ public class DSInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Orders order;
 
     @Enumerated(EnumType.STRING)
     private DSInventoryStatus status;
@@ -21,8 +21,8 @@ public class DSInventory {
     public DSInventory() {
     }
 
-    public DSInventory(Product product, DSInventoryStatus status, int quantity) {
-        this.product = product;
+    public DSInventory(Orders order, DSInventoryStatus status, int quantity) {
+        this.order = order;
         this.status = status;
         this.quantity = quantity;
     }
@@ -36,12 +36,12 @@ public class DSInventory {
         this.id = id;
     }
 
-    public Product getproduct() {
-        return product;
+    public Orders getorder() {
+        return order;
     }
 
-    public void setproduct(Product product) {
-        this.product = product;
+    public void setproduct(Orders order) {
+        this.order = order;
     }
 
     public DSInventoryStatus getStatus() {

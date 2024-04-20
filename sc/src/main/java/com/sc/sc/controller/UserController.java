@@ -2,20 +2,30 @@ package com.sc.sc.controller;
 
 import com.sc.sc.model.User;
 import com.sc.sc.repository.UserRepository;
+import com.sc.sc.repository.OrdersRepository;
+import com.sc.sc.model.*;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrdersRepository ordersRepository;
 
     @RequestMapping("/")
     public String showLoginForm(Model model) {
@@ -49,9 +59,57 @@ public class UserController {
     @GetMapping("/user")
     public String showUserDashboard(HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("user_id");
-        // Use userId to fetch user-specific data from the database and pass it to the model
-        return "user"; // Assuming "user.html" is the user dashboard template
+        if (userId != null) {
+            // Fetch user-specific data from the database
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                // Fetch orders for the user
+                List<Orders> orders = ordersRepository.findByUser(user);
+                model.addAttribute("username", user.getUsername());
+                model.addAttribute("orders", orders);
+                return "user";
+            }
+        }
+        // Redirect to login if session does not contain valid user_id
+        return "redirect:/";
     }
+
+    @GetMapping("/details")
+    public String showOrderDetails(@RequestParam Long id, Model model) {
+        Orders order = ordersRepository.findById(id).orElse(null);
+        if (order != null) {
+            model.addAttribute("order", order);
+            return "details";
+        } else {
+            // Handle case where order with given ID is not found
+            return "redirect:/user"; // Redirect back to user dashboard
+        }
+    }
+
+    @PostMapping("/cancelOrder")
+    @ResponseBody
+    public String cancelOrder(@RequestParam Long orderId) {
+        // Fetch the order from the database
+        Optional<Orders> orderOptional = ordersRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Orders order = orderOptional.get();
+            // Check if the order is cancellable (e.g., not already cancelled or delivered)
+            if (!order.getStatus().equals(Status.CANCELLED) && !order.getStatus().equals(Status.DELIVERED)) {
+                // Update the order status to "Cancelled"
+                order.setStatus(Status.CANCELLED);
+                ordersRepository.save(order); // Save the updated order in the database
+                return "Order cancelled successfully!";
+            } else {
+                return "Order cannot be cancelled.";
+            }
+        } else {
+            return "Order not found.";
+        }
+    }
+
+
+
 
     // Similar methods for other dashboard endpoints
 }

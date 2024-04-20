@@ -50,22 +50,22 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Orders will be fetched dynamically from the database -->
-                <tr>
-                    <td>1</td>
-                    <td>Product 1</td>
-                    <td>2022-04-15</td>
-                    <td>123 Street, City</td>
-                    <td>Delivered</td>
+                <!-- Iterate over orders fetched from the controller -->
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.orderId}">Order ID</td>
+                    <td th:text="${order.product.productName}">Product Name</td>
+                    <td th:text="${order.expectedDeliveryDate}">Order Date</td>
+                    <!-- Assuming user has an address property -->
+                    <td th:text="${order.user.address}">Delivery Address</td>
+                    <td th:text="${order.status}">Status</td>
                     <td>
-                        <a href="details.html?id=1" class="btn btn-info btn-sm">Details</a>
+                        <!-- Add actions/buttons as needed -->
+                        <a th:href="'details?id=' + ${order.orderId}" class="btn btn-info btn-sm">Details</a>
                     </td>
                 </tr>
-                <!-- Add more rows for additional orders -->
             </tbody>
         </table>
     </div>
-
     <!-- Bootstrap JS (optional, only required if using Bootstrap JavaScript features) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

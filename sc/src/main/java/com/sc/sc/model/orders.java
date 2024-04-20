@@ -1,5 +1,7 @@
 package com.sc.sc.model;
+
 import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -43,11 +45,11 @@ public class Orders {
         this.orderId = orderId;
     }
 
-    public Product getproduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setproduct(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

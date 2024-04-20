@@ -12,13 +12,13 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    // @Autowired
+    // private ProductRepository productRepository;
 
-    @GetMapping("/details")
-    public String getProductDetails(Model model) {
-        List<Product> products = productRepository.findAll(); // Example query, you may need to modify it
-        model.addAttribute("products", products);
-        return "details";
-    }
+    // // @GetMapping("/details")
+    // // public String getProductDetails(Model model) {
+    // //     List<Product> products = productRepository.findAll(); // Example query, you may need to modify it
+    // //     model.addAttribute("products", products);
+    // //     return "details";
+    // // }
 }

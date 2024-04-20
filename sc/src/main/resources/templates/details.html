@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,36 @@
         <h2>Order Details</h2>
         <!-- Details of the order will be displayed here -->
         <div id="order-details">
-            <p>Loading...</p>
+            <div class="card mb-3" th:object="${order}">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img th:src="@{${order.product.pictureUrl}}" class="card-img" alt="Product Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${order.product.productName}">Product Name</h5>
+                            <p class="card-text">
+                                <strong>Product ID:</strong> <span th:text="${order.product.productId}">Product ID</span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Price:</strong> <span th:text="${order.product.price}">Price</span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Delivery Date:</strong> <span th:text="${order.expectedDeliveryDate}">Delivery Date</span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Status:</strong> <span th:text="${order.status}">Status</span>
+                            </p>
+                            <div th:if="${order.status == 'Delivered'}">
+                                <button class="btn btn-warning" onclick="returnOrder()">Return Order</button>
+                            </div>
+                            <div th:unless="${order.status == 'Delivered'}">
+                                <button class="btn btn-danger" onclick="cancelOrder()">Cancel Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -24,65 +53,30 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Function to fetch order details based on order ID from URL query parameter
-        function fetchOrderDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('id');
-
-            // Example: Fetch order details from server and update HTML
-            // Replace this with your actual server request
-            // Example response: { productName: 'Product 1', deliveryDate: '2022-04-15', status: 'Delivered' }
-            const orderDetails = {
-                productName: 'Product 1',
-                productID: '123456',
-                price: '$50.00',
-                imageSrc: 'path/to/image.jpg',
-                deliveryDate: '2022-04-15',
-                status: 'Delivered' // Change status here to test
-            };
-
-            // Update HTML with order details
-            const orderDetailsHtml = `
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="${orderDetails.imageSrc}" class="card-img" alt="Product Image">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${orderDetails.productName}</h5>
-                                <p class="card-text"><strong>Product ID:</strong> ${orderDetails.productID}</p>
-                                <p class="card-text"><strong>Price:</strong> ${orderDetails.price}</p>
-                                <p class="card-text"><strong>Delivery Date:</strong> ${orderDetails.deliveryDate}</p>
-                                <p class="card-text"><strong>Status:</strong> ${orderDetails.status}</p>
-                                ${
-                                    orderDetails.status === 'Delivered' ?
-                                    `<button class="btn btn-warning" onclick="returnOrder()">Return Order</button>` :
-                                    `<button class="btn btn-danger" onclick="cancelOrder()">Cancel Order</button>`
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('order-details').innerHTML = orderDetailsHtml;
-        }
-
         // Function to handle cancel order
-        function cancelOrder() {
+        function cancelOrder(orderId) {
             // Perform cancel order action here
-            alert('Order cancelled successfully!');
+            $.ajax({
+                url: '/cancelOrder', // Replace with your backend endpoint
+                type: 'POST',
+                data: { orderId: orderId },
+                success: function(response) {
+                    // Update the order status to "cancelled" in the UI
+                    $('[th\\:text="${order.status}"]').text('Cancelled');
+                    alert('Order cancelled successfully!');
+                },
+                error: function(xhr, status, error) {
+                    alert('Error cancelling order: ' + error);
+                }
+            });
         }
-
+    
         // Function to handle return order
         function returnOrder() {
             // Perform return order action here
             alert('Order returned successfully!');
         }
-
-        // Call fetchOrderDetails function when the page loads
-        window.onload = fetchOrderDetails;
-    </script>
+    </script>    
 </body>
 
 </html>
