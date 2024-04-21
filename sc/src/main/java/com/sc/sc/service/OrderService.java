@@ -1,61 +1,53 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.List;
-import com.sc.sc.repository.OrdersRepository;
-import com.sc.sc.model.Status;
-import java.time.LocalDate;
+// package com.sc.sc.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+// import com.opencsv.CSVParser;
+// import com.opencsv.CSVReader;
+// import com.opencsv.CSVReaderBuilder;
+// import com.opencsv.exceptions.CsvValidationException;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Service;
+// import org.springframework.web.multipart.MultipartFile;
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStreamReader;
+// import java.io.Reader;
+// import java.time.LocalDate;
+// import java.util.List;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvValidationException;
-
-import com.sc.sc.model.Orders;
-import com.sc.sc.model.Product;
-import com.sc.sc.model.User;
+// import com.sc.sc.repository.*;
+// import com.sc.sc.model.Status;
 
 
-@Service
-public class OrderService {
+// import com.sc.sc.model.Orders;
+// import com.sc.sc.model.User;
+// import com.sc.sc.model.Product;
+// @Service
+// public class OrderService {
 
-    @Autowired
-    private OrdersRepository ordersRepository;
+//     @Autowired
+//     private OrdersRepository ordersRepository;
 
-    public void processOrdersFromCSV(MultipartFile file) throws IOException {
-        // Parse the CSV file and save orders to the database
-        CSVParser parser = new CSVParser();
-        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-             CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).build()) {
-            List<String[]> records = csvReader.readAll();
-            for (String[] record : records) {
-                // Assuming CSV format: orderId,productId,userId,status,expectedDeliveryDate,orderedDate
-                Long orderId = Long.parseLong(record[0]);
-                Long productId = Long.parseLong(record[1]);
-                Long userId = Long.parseLong(record[2]);
-                Status status = Status.valueOf(record[3]);
-                LocalDate expectedDeliveryDate = LocalDate.parse(record[4]);
-                LocalDate orderedDate = LocalDate.parse(record[5]);
+//     public void processOrdersFromCSV(MultipartFile file) throws IOException, CsvException{
+//         CSVParser parser = new CSVParser();
+//         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+//              CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(parser).build()) {
+//             List<String[]> records = csvReader.readAll();
+//             for (String[] record : records) {
+//                 Long productId = Long.parseLong(record[0]);
+//                 Long userId = Long.parseLong(record[1]);
+//                 Status status = Status.valueOf(record[2]);
+//                 LocalDate expectedDeliveryDate = LocalDate.parse(record[3]);
+//                 LocalDate orderedDate = LocalDate.parse(record[4]);
 
-                // Create Order object and save to the database
-                Order order = new Order();
-                order.setOrderId(orderId);
-                order.setProduct(new Product(productId));
-                order.setUser(new User(userId));
-                order.setStatus(status);
-                order.setExpectedDeliveryDate(expectedDeliveryDate);
-                order.setOrderedDate(orderedDate);
+//                 Product product = new Product(productId);
+//                 User user = new User(userId);
 
-                ordersRepository.save(order);
-            }
-        } catch (CsvValidationException e) {
-            e.printStackTrace(); // Handle CSV validation error
-            throw new IOException("Error processing CSV file");
-        }
-    }
-}
+//                 // Create Order object and save to the database
+//                 Orders order = new Orders(product, user, status, expectedDeliveryDate, orderedDate);
+//                 ordersRepository.save(order);
+//             }
+//         } catch (CsvValidationException e) {
+//             throw new IOException("Error processing CSV file: " + e.getMessage());
+//         }
+//     }
+// }

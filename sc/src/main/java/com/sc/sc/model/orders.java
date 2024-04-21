@@ -32,6 +32,7 @@ public class Orders {
     // Constructors
     public Orders() {
     }
+    
 
     public Orders(Product product, User user, Status status, LocalDate expectedDeliveryDate, LocalDate orderedDate) {
         this.product = product;

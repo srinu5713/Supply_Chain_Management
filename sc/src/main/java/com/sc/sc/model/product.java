@@ -21,6 +21,9 @@ public class Product {
     // Constructors
     public Product() {
     }
+    public Product(Long userId) {
+        this.productId = userId;
+    }
 
     public Product(String productName, double price, String pictureUrl) {
         this.productName = productName;

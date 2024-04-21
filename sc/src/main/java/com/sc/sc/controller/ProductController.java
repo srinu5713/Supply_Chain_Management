@@ -1,7 +1,7 @@
 package com.sc.sc.controller;
 
 import com.sc.sc.model.Product;
-import com.sc.sc.repository.ProductRepository;
+// import com.sc.sc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

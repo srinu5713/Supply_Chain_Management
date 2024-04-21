@@ -6,6 +6,7 @@ public enum Status {
     RETURNED("returned"),
     DELIVERED("delivered"),
     ACCEPTED("accepted"),
+    IN_DELIVERY_STATION("in_delivery_station"),
     OUT_FOR_DELIVERY("out_for_delivery");
     
     private final String displayName;

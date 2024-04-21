@@ -29,13 +29,13 @@ public class MWInventoryController {
         return "mw_production_items"; // Return the name of the Thymeleaf template
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/mw_orders")
     public String getAllOrders(Model model) {
         // Fetch all orders from the database
         List<Orders> orders = ordersrepository.findAll();
         // Pass the fetched orders to the Thymeleaf template for rendering
         model.addAttribute("orders", orders);
-        return "orders";
+        return "mw_orders";
 
     }
 
@@ -44,6 +44,6 @@ public class MWInventoryController {
     public String processOrders(Model model) {
         // Fetch all orders from the uploaded csv file
         // Then after clicking on submit then it inserts into the table orders
-        return "";
+        return "processorders";
     }
 }

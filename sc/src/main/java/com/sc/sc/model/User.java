@@ -27,6 +27,10 @@ public class User {
     public User() {
     }
 
+    public User(Long userId) {
+        this.userId = userId;
+    }
+
     public User(String username, String password, Role type, String address, String mobileNumber) {
         this.username = username;
         this.password = password;
