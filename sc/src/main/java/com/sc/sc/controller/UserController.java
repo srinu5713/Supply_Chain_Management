@@ -5,7 +5,6 @@ import com.sc.sc.repository.UserRepository;
 import com.sc.sc.repository.OrdersRepository;
 import com.sc.sc.repository.MWInventoryRepository;
 import com.sc.sc.model.*;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
@@ -93,27 +92,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("/cancelOrder")
-    @ResponseBody
-    public String cancelOrder(@RequestParam Long orderId) {
-        // Fetch the order from the database
-        Optional<Orders> orderOptional = ordersRepository.findById(orderId);
-        if (orderOptional.isPresent()) {
-            Orders order = orderOptional.get();
-            // Check if the order is cancellable (e.g., not already cancelled or delivered)
-            if (!order.getStatus().equals(Status.CANCELLED) && !order.getStatus().equals(Status.DELIVERED)) {
-                // Update the order status to "Cancelled"
-                order.setStatus(Status.CANCELLED);
-                ordersRepository.save(order); // Save the updated order in the database
-                return "Order cancelled successfully!";
-            } else {
-                return "Order cannot be cancelled.";
-            }
-        } else {
-            return "Order not found.";
-        }
-    }
-
     @GetMapping("/mw_admin")
     public String showAdminDashboard(HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("user_id");
@@ -126,6 +104,28 @@ public class UserController {
             }
         }
         return "redirect:/"; // Redirect to login if session does not contain valid user_id
+    }
+    @PostMapping("/updateStatus_U")
+    public String updateStatusU(@RequestParam("orderId") Long orderId, @RequestParam("status") String status) {
+        // Find the production item by its ID
+        Orders orderedItem = ordersRepository.findById(orderId).orElse(null);
+
+        // If the production item exists, update its status
+        if (orderedItem != null) {
+            // System.out.println("Hello!");
+            // System.out.println(status);
+            if(status.equals("DELIVERED") || status.equals("RETURNED")){
+                orderedItem.setStatus(Status.RETURNED);
+            }
+            else if(status.equals("SHIPPED")|| status.equals("ACCEPTED") || status.equals("IN_DELIVERY_STATION") || status.equals("CANCELLED")){
+                // System.out.println("Entered block!");
+                orderedItem.setStatus(Status.CANCELLED);
+            }
+            ordersRepository.save(orderedItem);
+            System.out.println(orderedItem.getStatus());
+        }
+        // Redirect back to the production page after updating
+        return "redirect:/user";
     }
 
 }

@@ -48,10 +48,6 @@ public class Orders {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
     public Product getProduct() {
         return product;
     }

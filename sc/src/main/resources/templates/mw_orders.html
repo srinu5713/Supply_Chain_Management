@@ -50,6 +50,8 @@
                     <th>Ordered Date</th>
                     <th>Expected Date</th>
                     <th>Status</th>
+                    <th>Actions</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +63,18 @@
                     <td th:text="${order.orderedDate}">Ordered Date</td>
                     <td th:text="${order.expectedDeliveryDate}">Expected Date of Delivery</td>
                     <td th:text="${order.status}">Status</td>
+                    <td>
+                        <form action="/updatestatus_a" method="post">
+                            <input type="hidden" name="orderId" th:value="${order.orderId}">
+                            <div class="form-group">
+                                <select class="form-control" name="status">
+                                    <option value="SHIPPED">SHIPPED</option>
+                                    <option value="ACCEPTED">ACCEPTED</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -1,6 +1,7 @@
 package com.sc.sc.controller;
 
 import com.sc.sc.model.ReqProduction;
+import com.sc.sc.model.Status;
 import com.sc.sc.repository.OrdersRepository;
 import com.sc.sc.repository.ReqProductionRepository;
 import com.sc.sc.model.Orders;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -46,4 +49,26 @@ public class MWInventoryController {
         // Then after clicking on submit then it inserts into the table orders
         return "processorders";
     }
+
+
+    @PostMapping("/updatestatus_a")
+    public String updateStatusMW(@RequestParam("orderId") Long orderId, @RequestParam("status") String status) {
+        // Find the order by its ID
+        Orders orderedItem = ordersrepository.findById(orderId).orElse(null);
+    
+        // If the order exists, update its status
+        if (orderedItem != null) {
+            if(status.equals("ACCEPTED")){
+                orderedItem.setStatus(Status.ACCEPTED);
+            }
+            else if(status.equals("SHIPPED")){
+                orderedItem.setStatus(Status.SHIPPED);
+            }
+            ordersrepository.save(orderedItem);
+        }
+    
+        // Redirect back to the page after updating
+        return "redirect:/mw_orders";
+    }
+
 }

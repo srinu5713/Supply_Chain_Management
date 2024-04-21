@@ -19,24 +19,24 @@ public class ReqProductionController {
     @Autowired
     private ReqProductionRepository reqProductionRepository;
 
-    @PostMapping("/updatestatus")
-    public String updateStatus(@RequestParam("reqId") Long reqId, @RequestParam("status") String status) {
+    @PostMapping("/updatestatus_p")
+    public String updateStatusp(@RequestParam("reqId") Long reqId, @RequestParam("status") String status) {
         // Find the production item by its ID
         ReqProduction productionItem = reqProductionRepository.findById(reqId).orElse(null);
 
         // If the production item exists, update its status
         if (productionItem != null) {
-            if(status=="DISPATCHED"){
+            if(status.equals("DISPATCHED")){
                 productionItem.setStatus(ProductionStatus.DISPATCHED);
             }
-            else if(status=="DELIVERED"){
+            else if(status.equals("DELIVERED")){
                 productionItem.setStatus(ProductionStatus.DELIVERED);
             }
             reqProductionRepository.save(productionItem);
         }
 
         // Redirect back to the production page after updating
-        return "redirect:/production";
+        return "redirect:/production_req";
     }
 
     @GetMapping("/production_req")

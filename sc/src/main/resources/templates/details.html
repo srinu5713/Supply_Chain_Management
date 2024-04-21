@@ -53,17 +53,29 @@
                                 <strong>Price:</strong> <span th:text="${order.product.price}">Price</span>
                             </p>
                             <p class="card-text">
-                                <strong>Delivery Date:</strong> <span th:text="${order.expectedDeliveryDate}">Delivery Date</span>
+                                <strong>Expected Delivery Date:</strong> <span th:text="${order.expectedDeliveryDate}">Delivery Date</span>
                             </p>
                             <p class="card-text">
                                 <strong>Status:</strong> <span th:text="${order.status}">Status</span>
                             </p>
-                            <div th:if="${order.status == 'Delivered'}">
-                                <button class="btn btn-warning" onclick="returnOrder()">Return Order</button>
-                            </div>
-                            <div th:unless="${order.status == 'Delivered'}">
-                                <button class="btn btn-danger" onclick="cancelOrder()">Cancel Order</button>
-                            </div>
+                        
+                            <div th:unless="${ order.status == order.status.CANCELLED || order.status ==  order.status.RETURNED}">
+                                <!-- Render buttons based on order status -->
+                                <div th:if="${order.status == order.status.DELIVERED}">
+                                    <form class="form-inline my-2 my-lg-0" action="/updateStatus_U" method="post">
+                                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                                        <input type="hidden" name="status" value="RETURNED"> 
+                                        <button style="background-color: rgb(118, 236, 122)" class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="returnOrder">Return Order<i class="fas fa-sign-out-alt"></i></button>
+                                    </form>       
+                                </div>
+                                <div th:unless="${order.status == order.status.DELIVERED}"> 
+                                    <form class="form-inline my-2 my-lg-0" action="/updateStatus_U" method="post">
+                                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                                        <input type="hidden" name="status" value="CANCELLED"> 
+                                        <button style="background-color: rgb(118, 236, 122)" class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="cancelOrder">Cancel Order<i class="fas fa-sign-out-alt"></i></button>
+                                    </form>                        
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

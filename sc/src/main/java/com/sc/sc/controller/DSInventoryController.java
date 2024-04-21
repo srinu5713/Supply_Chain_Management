@@ -1,12 +1,10 @@
 package com.sc.sc.controller;
-
-import com.sc.sc.model.DSInventory;
-import com.sc.sc.repository.DSInventoryRepository;
-import com.sc.sc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sc.sc.model.Orders;
 
@@ -57,13 +55,32 @@ public class DSInventoryController {
         return "returned_items";
     }
 
-    @GetMapping("/senttoQA")
+    @PostMapping("/senttoQA")
     public String redirecttoQA(Model model) {
         return "senttoQA";
     }
-    @GetMapping("/senttoMW")
+    @PostMapping("/sendtoMW")
     public String redirecttoMW(Model model) {
-        return "senttoMW";
+        return "sendtoMW";
+    }
+
+    @PostMapping("/updatestatus")
+    public String updateStatusU(@RequestParam("orderId") Long orderId, @RequestParam("status") String status) {
+        // Find the production item by its ID
+        Orders orderedItem = ordersRepository.findById(orderId).orElse(null);
+        if (orderedItem != null) {
+            if(status.equals("IN_DELIVERY_STATION")){
+                orderedItem.setStatus(Status.IN_DELIVERY_STATION);
+            }
+            else if(status.equals("OUT_FOR_DELIVERY")){
+                orderedItem.setStatus(Status.OUT_FOR_DELIVERY);
+            }
+            else{
+                orderedItem.setStatus(Status.DELIVERED);
+            }
+            ordersRepository.save(orderedItem);
+        }
+        return "redirect:/ds_admin";
     }
 }
 
