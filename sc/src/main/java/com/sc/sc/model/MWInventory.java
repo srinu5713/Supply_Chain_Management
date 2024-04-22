@@ -10,17 +10,17 @@ public class MWInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "productId")
     private Product product;
 
-    private int quantity;
+    private Long quantity;
 
     // Constructors
     public MWInventory() {
     }
 
-    public MWInventory(Product product, int quantity) {
+    public MWInventory(Product product, Long quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -42,11 +42,11 @@ public class MWInventory {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 }

@@ -22,6 +22,13 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "mw_inventory_id")
+    private MWInventory mwInventory;
+    
+    @Column
+    private Long quantity;
+
     @Column(name = "expected_delivery_date", nullable = false)
     private LocalDate expectedDeliveryDate;
 
@@ -31,16 +38,15 @@ public class Orders {
 
     // Constructors
     public Orders() {
-    }
-    
+    }   
 
-    public Orders(Product product, User user, Status status, LocalDate expectedDeliveryDate, LocalDate orderedDate) {
+    public Orders(Product product, User user, Status status,Long quantity, LocalDate expectedDeliveryDate, LocalDate orderedDate) {
         this.product = product;
         this.user = user;
         this.status = status;
+        this.quantity = quantity;
         this.expectedDeliveryDate = expectedDeliveryDate;
         this.orderedDate = orderedDate;
-
     }
 
     // Getters and setters
@@ -54,6 +60,14 @@ public class Orders {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Long getQuantity(){
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity){
+        this.quantity=quantity;
     }
 
     public User getUser() {

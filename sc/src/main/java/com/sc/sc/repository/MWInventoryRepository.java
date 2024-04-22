@@ -11,4 +11,5 @@ public interface MWInventoryRepository extends JpaRepository<MWInventory, Long> 
     // Add custom query methods if needed
     @NonNull
     List<MWInventory> findAll();
+
 }
