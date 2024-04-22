@@ -23,6 +23,9 @@ public class MWInventoryController {
     @Autowired
     private OrdersRepository ordersrepository;
 
+    @Autowired
+    private InventoryManagementFacade inventoryManagementFacade;
+
     @GetMapping("/mw_production_items")
     public String getMWProductionItems(Model model) {
         // Fetch MWInventory items from the database
@@ -71,4 +74,10 @@ public class MWInventoryController {
         return "redirect:/mw_orders";
     }
 
+
+    @GetMapping("/Inventory_facade")
+    public String showInventoryDashboard(Model model) {
+        model.addAttribute("inventoryManagementFacade", inventoryManagementFacade);
+        return "Inventory_facade";
+    }
 }
