@@ -4,8 +4,6 @@ package com.sc.sc.repository;
 
 import com.sc.sc.model.Orders;
 import com.sc.sc.model.MWInventory;
-import com.sc.sc.repository.OrdersRepository;
-import com.sc.sc.repository.MWInventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;

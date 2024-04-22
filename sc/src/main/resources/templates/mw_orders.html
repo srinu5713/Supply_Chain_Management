@@ -48,7 +48,9 @@
                     <th>User ID</th>
                     <th>Product ID</th>
                     <th>Ordered Date</th>
-                    <th>Expected Date</th>
+                    <th>Expected Date Of Delivery</th>
+                    <th>Feedback</th>
+                    <th>Reaction</th>
                     <th>Status</th>
                     <th>Actions</th>
                     
@@ -62,6 +64,8 @@
                     <td th:text="${order.product.productId}">Product ID</td>
                     <td th:text="${order.orderedDate}">Ordered Date</td>
                     <td th:text="${order.expectedDeliveryDate}">Expected Date of Delivery</td>
+                    <td th:text="${order.feedback}">feedback</td>                    
+                    <td th:text="${order.satisfaction}">Reaction</td>
                     <td th:text="${order.status}">Status</td>
                     <td>
                         <form action="/updatestatus_a" method="post">

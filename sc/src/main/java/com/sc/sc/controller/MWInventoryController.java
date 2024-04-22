@@ -4,13 +4,18 @@ import com.sc.sc.model.ReqProduction;
 import com.sc.sc.model.Status;
 import com.sc.sc.repository.OrdersRepository;
 import com.sc.sc.repository.ReqProductionRepository;
+import com.sc.sc.repository.logRepository;
+
 import com.sc.sc.model.Orders;
+import com.sc.sc.model.logs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.time.LocalDateTime;
+
 
 import java.util.List;
 
@@ -19,6 +24,9 @@ public class MWInventoryController {
 
     @Autowired
     private ReqProductionRepository reqproductionrepository;
+
+    @Autowired
+    private logRepository logRepository;
 
     @Autowired
     private OrdersRepository ordersrepository;
@@ -68,10 +76,18 @@ public class MWInventoryController {
                 orderedItem.setStatus(Status.SHIPPED);
             }
             ordersrepository.save(orderedItem);
+            logs logEntry = new logs();
+            logEntry.setOrderId(orderId);
+            logEntry.setStatus(orderedItem.getStatus());
+            logEntry.setTimestamp(LocalDateTime.now());
+            logRepository.save(logEntry);
+    
         }
+      
     
         // Redirect back to the page after updating
         return "redirect:/mw_orders";
+
     }
 
 

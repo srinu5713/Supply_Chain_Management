@@ -4,6 +4,7 @@ import com.sc.sc.model.User;
 import com.sc.sc.repository.UserRepository;
 import com.sc.sc.repository.OrdersRepository;
 import com.sc.sc.repository.MWInventoryRepository;
+import com.sc.sc.repository.logRepository;
 import com.sc.sc.model.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,10 @@ public class UserController {
 
     @Autowired
     private MWInventoryRepository mwInventoryRepository;
+
+    @Autowired
+    private logRepository logRepository;
+
 
     @RequestMapping("/")
     public String showLoginForm(Model model) {
@@ -126,6 +132,15 @@ public class UserController {
         }
         // Redirect back to the production page after updating
         return "redirect:/user";
+    }
+
+    @GetMapping("/logs")
+    public String getOrderLogs(@RequestParam("id") Long orderId, Model model) {
+        // Find logs for the specified order ID
+        List<logs> logs = logRepository.findByOrderId(orderId);
+        // Pass logs to the Thymeleaf template for rendering
+        model.addAttribute("logs", logs);
+        return "logs"; // Return the name of the Thymeleaf template
     }
 
 }

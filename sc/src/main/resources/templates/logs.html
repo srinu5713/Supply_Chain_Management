@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Order Logs</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Additional custom styles can be added here */
-        .navbar .logout-btn {
-            margin-left: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -20,6 +14,7 @@
         <a class="navbar-brand" href="/user">
             <img src="../styles/logo.png" alt="Logo" width="100" height="50" class="d-inline-block align-top">
             C3S Delivery Mgmt
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,45 +32,27 @@
             </ul>
         </div>
     </nav>
-
     <div class="container mt-4">
-        <h2>Your Orders</h2>
-        <table class="table table-striped">
+        <h2>Order Logs</h2>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Order ID</th>
-                    <th>Product Name</th>
-                    <th>Expected Delivery Date</th>
-                    <th>Delivery Address</th>
                     <th>Status</th>
-                    <th>Actions</th>
-                    <th>Track Order</th>
+                    <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Iterate over orders fetched from the controller -->
-                <tr th:each="order : ${orders}">
-                    <td th:text="${order.orderId}">Order ID</td>
-                    <td th:text="${order.product.productName}">Product Name</td>
-                    <td th:text="${order.expectedDeliveryDate}">Order Date</td>
-                    <td th:text="${order.user.address}">Delivery Address</td>
-                    <td th:text="${order.status}">Status</td>
-
-                    <td>
-                        <!-- Add actions/buttons as needed -->
-                        <a th:href="'details?id=' + ${order.orderId}" class="btn btn-info btn-sm">Details</a>
-                    </td>
-                    <td>
-                        <!-- Add actions/buttons as needed -->
-                        <a th:href="'logs?id='+ ${order.orderId}" class="btn btn-info btn-sm">
-                            <i class="fa fa-book" aria-hidden="true" th:click="'logs?id='+ ${order.orderId}"></i>
-                            <span>View Logs</span>
-                        </a>                        
-                    </td>
+                <!-- Loop through logs and display them -->
+                <tr th:each="log : ${logs}">
+                    <td th:text="${log.orderId}"></td>
+                    <td th:text="${log.status}"></td>
+                    <td th:text="${log.timestamp}"></td>
                 </tr>
             </tbody>
         </table>
     </div>
+
     <!-- Bootstrap JS (optional, only required if using Bootstrap JavaScript features) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

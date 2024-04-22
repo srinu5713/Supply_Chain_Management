@@ -103,6 +103,7 @@
                     <th>Order ID</th>
                     <th>User ID</th>
                     <th>Product ID</th>
+                    <th>Delivery Address</th>
                     <th>Expected Delivery Date</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -114,6 +115,7 @@
                     <td th:text="${order.orderId}">Order ID</td>
                     <td th:text="${order.user.userId}">User ID</td>
                     <td th:text="${order.product.productId}">Product ID</td>
+                    <td th:text="${order.user.address}">Delivery Address</td>
                     <td th:text="${order.expectedDeliveryDate}">Expected Delivery Date</td>
                     <td th:text="${order.status}">Status</td>
                     <td>
@@ -138,18 +140,5 @@
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
-    <script>
-        // Function to mark items as out for delivery
-        function markOutForDelivery() {
-            // Perform AJAX call to update statuses and delete entries
-            // Assuming AJAX call is successful, perform the following actions:
-
-            // Update status in order table to "Out for delivery" for items in ds_order_table
-            // Delete all entries from ds_order_table
-
-            // Display success message and update page content
-            document.querySelector('.container').innerHTML = '<h2>Task is completed for the day...</h2>';
-        }
-    </script>
 </body>
 </html>

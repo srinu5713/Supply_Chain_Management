@@ -13,4 +13,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     // Add custom query methods if needed
     List<Orders> findByUser(User user);
     List<Orders> findByStatus(Status status);
+    List<Orders> findByStatusIn(List<Status> statuses);
+
 }
