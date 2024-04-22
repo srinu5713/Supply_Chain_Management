@@ -29,6 +29,12 @@ public class Orders {
     @Column
     private Long quantity;
 
+    @Column
+    private String feedback;
+
+    @Column
+    private String satisfaction;
+
     @Column(name = "expected_delivery_date", nullable = false)
     private LocalDate expectedDeliveryDate;
 
@@ -102,4 +108,21 @@ public class Orders {
         this.orderedDate = orderedDate;
     }
 
+    
+    // Getters and setters for user feedback fields
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public String getSatisfaction() {
+        return satisfaction;
+    }
+
+    public void setSatisfaction(String satisfaction) {
+        this.satisfaction = satisfaction;
+    }
 }

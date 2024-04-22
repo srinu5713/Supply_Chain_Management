@@ -50,6 +50,7 @@
                     <th>Order Date</th>
                     <th>Delivery Address</th>
                     <th>Status</th>
+                    <th>Feedback</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -62,6 +63,9 @@
                     <!-- Assuming user has an address property -->
                     <td th:text="${order.user.address}">Delivery Address</td>
                     <td th:text="${order.status}">Status</td>
+                    <td th:text="${order.feedback}">feedback</td>                    
+                    <td th:text="${order.satisfaction}">Reaction</td>
+ 
                     <td>
                         <!-- Add actions/buttons as needed -->
                         <a th:href="'details?id=' + ${order.orderId}" class="btn btn-info btn-sm">Details</a>

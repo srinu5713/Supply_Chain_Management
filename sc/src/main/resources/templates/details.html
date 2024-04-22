@@ -75,9 +75,33 @@
                                         <button style="background-color: rgb(118, 236, 122)" class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="cancelOrder">Cancel Order<i class="fas fa-sign-out-alt"></i></button>
                                     </form>                        
                                 </div>
+                                <div th:if="${order.status == order.status.DELIVERED}">
+                                    <form class="mt-4" action="/submitFeedback" method="post">
+                                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                                        
+                                        <!-- Feedback input -->
+                                        <div class="form-group">
+                                            <label for="feedback">Feedback:</label>
+                                            <textarea class="form-control" id="feedback" name="feedback" required></textarea>
+                                        </div>
+                                        
+                                        <!-- Satisfaction select -->
+                                        <div class="form-group">
+                                            <label for="satisfaction">Satisfaction:</label>
+                                            <select class="form-control" id="satisfaction" name="satisfaction" required>
+                                                <option value="SATISFIED">Satisfied</option>
+                                                <option value="NOT_SATISFIED">Not Satisfied</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                                    </form>
+                                </div>
                             </div>                            
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
